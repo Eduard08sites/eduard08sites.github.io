@@ -200,7 +200,7 @@ function canMoveDown() {
     })
 }
 function addScore() {
-    for (let i = 0; i < 199; i += width) {
+    for (let i = 0; i < (squares.length - 10); i += width) {
         const row = [i, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9]
 
         if (row.every(index => squares[index].classList.contains('taken'))) {
@@ -209,7 +209,7 @@ function addScore() {
             row.forEach(index => {
                 squares[index].classList.remove('taken')
                 squares[index].classList.remove('tetromino')
-            squares[index].style.backgroundColor = '' 
+                squares[index].style.backgroundColor = '' 
             })
             const squaresRemoved = squares.splice(i, width)
             squares = squaresRemoved.concat(squares)
@@ -271,6 +271,5 @@ function resetGame() {
     draw()
     displayShape()
 }
-
-    resetBtn.addEventListener('click', resetGame)
+resetBtn.addEventListener('click', resetGame)
 })
