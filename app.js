@@ -159,15 +159,15 @@ function rotate() {
 
 //show up next piece
 const displaySquares=document.querySelectorAll('.showroom div')
-const displayWidth=5
+const displayWidth=4
 let displayIndex=0
 //the piece without rotations
 const upNextTetrominoes=[
-[6,11,12,13], //L
-[6,7,12,13],//z
-[7,11,12,13],//T
-[7,8,12,13],//o
-[2,7,12,17]//I
+[5,9,13,14], //L
+[5,9,10,14],//z
+[5,9,10,13],//T
+[5,6,9,10],//o
+[8,9,10,11]//I
 ]
 function displayShape() {
     displaySquares.forEach(square => square.classList.remove('tetromino'))
