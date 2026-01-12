@@ -201,25 +201,18 @@ function canMoveDown() {
 }
 function addScore() {
     for (let i = 0; i < 199; i += width) {
-        const row = [
-            i, i + 1, i + 2, i + 3, i + 4,
-            i + 5, i + 6, i + 7, i + 8, i + 9
-        ]
+        const row = [i, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9]
 
         if (row.every(index => squares[index].classList.contains('taken'))) {
-            // scor
             scoreDisplay.innerHTML = parseInt(scoreDisplay.innerHTML) + 10
-
-            // șterge rândul
+            
             row.forEach(index => {
                 squares[index].classList.remove('taken')
                 squares[index].classList.remove('tetromino')
+            squares[index].style.backgroundColor = '' 
             })
-
-            // mută restul în jos
-            const removedSquares = squares.splice(i, width)
-            squares = removedSquares.concat(squares)
-
+            const squaresRemoved = squares.splice(i, width)
+            squares = squaresRemoved.concat(squares)
             squares.forEach(cell => grid.appendChild(cell))
         }
     }
