@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function freeze() {
-        if (current.some(index => squares[currentPosition + index + width].classList.contains('taken') || (currentPosition + index + width) >= squares.length)) {
+        if (current.some(index => (currentPosition + index + width) >= squares.length || squares[currentPosition + index + width].classList.contains('taken'))) {
             current.forEach(index => squares[currentPosition + index].classList.add('taken'))
             random = nextRandom
             nextRandom = Math.floor(Math.random() * theTetrominoes.length)
@@ -133,7 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const displaySquares = document.querySelectorAll('.showroom div')
-    const displayWidth = 4
     let displayIndex = 0
     const upNextTetrominoes = [
         [5, 9, 13, 14],
@@ -149,20 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
             displaySquares[displayIndex + index].classList.add('tetromino')
         })
     }
-
-    startBtn.addEventListener('click', () => {
-        if (scoreDisplay.textContent === 'GAME OVER') {
-            resetGame()
-        }
-        if (timerId) {
-            clearInterval(timerId)
-            timerId = null
-        } else {
-            draw()
-            timerId = setInterval(moveDown, 400)
-            displayShape()
-        }
-    })
 
     function isAtRightEdge(position, shape) {
         return shape.some(index => (position + index) % width === width - 1)
@@ -183,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < 199; i += width) {
             const row = [i, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9]
             if (row.every(index => squares[index].classList.contains('taken'))) {
-                scoreDisplay.innerHTML = parseInt(scoreDisplay.innerHTML) + 10
+                scoreDisplay.innerHTML = parseInt(scoreDisplay.innerHTML) + 100
                 row.forEach(index => {
                     squares[index].classList.remove('taken')
                     squares[index].classList.remove('tetromino')
@@ -249,6 +234,20 @@ document.addEventListener('DOMContentLoaded', () => {
         draw()
         displayShape()
     }
+
+    startBtn.addEventListener('click', () => {
+        if (scoreDisplay.textContent === 'GAME OVER') {
+            resetGame()
+        }
+        if (timerId) {
+            clearInterval(timerId)
+            timerId = null
+        } else {
+            draw()
+            timerId = setInterval(moveDown, 400)
+            displayShape()
+        }
+    })
 
     resetBtn.addEventListener('click', resetGame)
 })
