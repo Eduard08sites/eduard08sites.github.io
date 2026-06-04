@@ -6,9 +6,95 @@ body {
     align-items: center;
     background-color: #1a1a1a;
     font-family: 'Courier New', Courier, monospace;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
+/* --- LOGICA DE AFIȘARE ECRANE --- */
+.screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* --- DESIGN PAGINA DE LOGIN --- */
+.login-container {
+    background-color: #000000;
+    padding: 40px;
+    border-radius: 15px;
+    border: 4px solid #333;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.tetris-logo {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #ffc506;
+    letter-spacing: 5px;
+    margin-bottom: 5px;
+    text-shadow: 3px 3px 0px #333;
+}
+
+.subtitle {
+    color: #2ecc71;
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+}
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#username {
+    padding: 12px;
+    border: 2px solid #333;
+    background-color: #1a1a1a;
+    color: #ffc506;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    outline: none;
+    text-align: center;
+}
+
+#username:focus {
+    border-color: #ffc506;
+}
+
+#start-game-btn {
+    padding: 12px;
+    background-color: #ffc506;
+    color: #000;
+    font-size: 1.1rem;
+    border: none;
+    box-shadow: 0 4px 0px #b88e00;
+    transition: all 0.1s ease;
+}
+
+#start-game-btn:hover {
+    background-color: #ffe066;
+    transform: translateY(2px);
+    box-shadow: 0 2px 0px #b88e00;
+}
+
+#start-game-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0px 0px #b88e00;
+}
+
+/* --- STILURILE TALE ORIGINALE PENTRU CONSOLĂ --- */
 .game-console {
     display: flex;
     flex-direction: column;
@@ -46,7 +132,6 @@ body {
 }
 
 .grid {
-    /* Dimensiuni calculate in vh pentru scalare universala */
     width: 32vh; 
     height: 64vh;
     display: flex;
@@ -103,6 +188,10 @@ button {
     border: 1px solid #333;
 }
 
+button:hover {
+    background-color: #222;
+}
+
 .tetromino { 
     background-color: black !important;
 }
@@ -118,9 +207,15 @@ button {
 .me h3 {
     font-size: 14px;
     color: #2ecc71;
+    margin-top: 15px;
+    margin-bottom: 2px;
+}
+.me h6 {
+    margin: 0;
+    color: #888;
 }
 
-/* Ajustare pentru ecrane de telefon */
+/* Ajustare ecrane mici */
 @media (max-width: 600px) {
     .container {
         flex-direction: column;
@@ -137,6 +232,41 @@ button {
     .button-section {
         flex-direction: row;
         gap: 20px;
-        padding-left: 0;
     }
+}
+.highscore-box {
+    background: #111;
+    border: 2px solid #ffc506;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(255, 197, 6, 0.2);
+}
+
+.highscore-box {
+    background: #111;
+    border: 2px solid #ffc506;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(255, 197, 6, 0.2);
+}
+
+#menu-highscore {
+    color: #ffc506;
+    font-size: 16px;
+}
+
+#menu-high-user {
+    font-weight: bold;
 }

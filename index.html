@@ -1,108 +1,94 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-    <title>Tetris</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="app.js" charset="UTF-8"></script>
+    <title>Tetris - P.E Industries</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        body{
-            background-color: rgb(204, 109, 0);
-        }
-    </style>
+    <script src="app.js"></script>
 </head>
 <body>
-    <div class="game-console">
-    <div class="game-container">
-    <div class="top-bar">
-    <div class="score"><h3>Score:<span id="score">0</span></h3></div>
-    </div>
-    <div class="container">
-        <div class="grid">
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
-<div></div><div></div><div></div><div></div><div></div>
 
-            <div class="taken floor"></div>
-            <div class="taken floor"></div>
-            <div class="taken floor"></div>
-            <div class="taken floor"></div>
-            <div class="taken floor"></div>
-            <div class="taken floor"></div>
-            <div class="taken floor"></div>
-            <div class="taken floor"></div>
-            <div class="taken floor"></div>
-            <div class="taken floor"></div>
-        </div>
-       <div class="button-section"> <div class="showroom">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-            <div class="buttons">
-             <button id="start-button">Start/Pause</button>
-             <button id="reset-button">RESET</button>
+    <div id="login-screen" class="screen">
+        <div class="login-container">
+            <h1 class="tetris-logo">TETRIS</h1>
+            <p class="subtitle">P.E Industries • First site ever</p>
+            
+            <div class="highscore-box">
+                🏆 RECORD: <span id="menu-high-user" style="color: #2ecc71;">Nobody</span> — <span id="menu-highscore">0</span> pts
             </div>
-            <div class="me"><h3>P.E Industries</h3>
-            <h6>P.S: First site ever </h6></div>
+
+            <form id="login-form">
+                <input type="text" id="username" placeholder="Enter your username..." required autocomplete="off">
+                <button type="submit" id="start-game-btn">START GAME</button>
+            </form>
         </div>
     </div>
-</div>
+
+    <div id="game-screen" class="screen hidden">
+        <div class="game-console">
+            <div class="game-container">
+                <div class="top-bar">
+                    <div class="score">
+                        <h3>Player: <span id="player-display" style="color: #2ecc71;">-</span> | Score: <span id="score">0</span></h3>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="grid">
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+
+                        <div class="taken floor"></div>
+                        <div class="taken floor"></div>
+                        <div class="taken floor"></div>
+                        <div class="taken floor"></div>
+                        <div class="taken floor"></div>
+                        <div class="taken floor"></div>
+                        <div class="taken floor"></div>
+                        <div class="taken floor"></div>
+                        <div class="taken floor"></div>
+                        <div class="taken floor"></div>
+                    </div>
+                    
+                    <div class="button-section"> 
+                        <div class="showroom">
+                            <div></div><div></div><div></div><div></div><div></div>
+                            <div></div><div></div><div></div><div></div><div></div>
+                            <div></div><div></div><div></div><div></div><div></div>
+                            <div></div><div></div><div></div><div></div><div></div>
+                        </div>
+                        <div class="buttons">
+                            <button id="start-button">Start/Pause</button>
+                            <button id="reset-button">RESET</button>
+                            <button id="back-to-menu-btn" style="color: #ff4a4a; border-color: #555; margin-top: 10px;">Exit to Menu</button>
+                        </div>
+                        <div class="me">
+                            <h3>P.E Industries</h3>
+                            <h6>P.S: First site ever</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

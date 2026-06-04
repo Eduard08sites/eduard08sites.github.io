@@ -1,4 +1,59 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const loginScreen = document.getElementById('login-screen');
+    const gameScreen = document.getElementById('game-screen');
+    const loginForm = document.getElementById('login-form');
+    const usernameInput = document.getElementById('username');
+    const playerDisplay = document.getElementById('player-display');
+    const backToMenuBtn = document.getElementById('back-to-menu-btn');
+    const menuHighscore = document.getElementById('menu-highscore');
+    const menuHighUser = document.getElementById('menu-high-user');
+
+    let currentUsername = "";
+    let activeScore = 0;
+
+    // Încărcăm datele recordului (Nume + Scor) la pornirea site-ului
+    function loadHighscore() {
+        let savedHighscore = localStorage.getItem('tetrisHighscore') || 0;
+        let savedUser = localStorage.getItem('tetrisHighUser') || "Nobody";
+        menuHighscore.textContent = savedHighscore;
+        menuHighUser.textContent = savedUser;
+    }
+    
+    loadHighscore();
+
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        currentUsername = usernameInput.value.trim();
+        if (currentUsername) {
+            playerDisplay.textContent = currentUsername;
+            activeScore = 0;
+            scoreDisplay.textContent = 0;
+            
+            loginScreen.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+            
+            draw();
+            displayShape();
+            if (!timerId) {
+                timerId = setInterval(moveDown, 400);
+            }
+        }
+    });
+
+    backToMenuBtn.addEventListener('click', () => {
+        resetGame();
+        if (timerId) {
+            clearInterval(timerId);
+            timerId = null;
+        }
+        // Reîmprospătăm recordul în meniu
+        loadHighscore();
+        
+        gameScreen.classList.add('hidden');
+        loginScreen.classList.remove('hidden');
+    });
+
+    // --- CODUL DE JOC TETRIS ---
     const grid = document.querySelector('.grid')
     let squares = Array.from(document.querySelectorAll('.grid div'))
     const scoreDisplay = document.querySelector('#score')
@@ -48,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let current = theTetrominoes[random][currentRotation]
 
     function draw() {
+        if(gameScreen.classList.contains('hidden')) return;
         current.forEach(index => {
             squares[currentPosition + index].classList.add('tetromino')
         })
@@ -60,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function control(e) {
+        if (gameScreen.classList.contains('hidden')) return
         if (isHardDropping) return
         if (e.keyCode === 37) moveLeft()
         else if (e.keyCode === 38) rotate()
@@ -157,7 +214,8 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < 199; i += width) {
             const row = [i, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9]
             if (row.every(index => squares[index].classList.contains('taken'))) {
-                scoreDisplay.innerHTML = parseInt(scoreDisplay.innerHTML) + 100
+                activeScore += 100
+                scoreDisplay.innerHTML = activeScore
                 row.forEach(index => {
                     squares[index].classList.remove('taken', 'tetromino')
                 })
@@ -191,9 +249,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function gameOver() {
-        scoreDisplay.textContent = 'GAME OVER'
-        clearInterval(timerId)
-        timerId = null
+        scoreDisplay.textContent = 'GAME OVER';
+        clearInterval(timerId);
+        timerId = null;
+
+        // Verificăm dacă s-a bătut recordul
+        let currentRecord = parseInt(localStorage.getItem('tetrisHighscore')) || 0;
+        if (activeScore > currentRecord) {
+            localStorage.setItem('tetrisHighscore', activeScore);
+            localStorage.setItem('tetrisHighUser', currentUsername);
+        }
     }
 
     function resetGame() {
@@ -209,6 +274,8 @@ document.addEventListener('DOMContentLoaded', () => {
         random = Math.floor(Math.random() * theTetrominoes.length)
         nextRandom = Math.floor(Math.random() * theTetrominoes.length)
         current = theTetrominoes[random][currentRotation]
+        
+        activeScore = 0
         scoreDisplay.textContent = 0
         draw()
         displayShape()
